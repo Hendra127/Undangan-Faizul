@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
   <!-- Background Music -->
-  <audio autoplay loop hidden>
-    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+  <audio id="bgMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg" />
   </audio>
 
   <style>
@@ -69,6 +69,8 @@
       background-repeat: no-repeat;
       color: #fff;
       text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+      position: relative;
+      overflow: hidden;
     }
 
     #slide1::before {
@@ -77,6 +79,27 @@
       inset: 0;
       background: rgba(0,0,0,0.4);
       z-index: 0;
+    }
+
+    #slide1 iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: brightness(0.6);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Fallback gambar untuk mobile (iframe sering bermasalah di mobile) */
+    @media (max-width: 768px) {
+      #slide1 iframe { display: none; }
+      #slide1 {
+        background-image: url('https://via.placeholder.com/800x600?text=Background+Undangan');
+        background-size: cover;
+        background-position: center;
+      }
     }
 
     #slide1 .slide-content {
@@ -216,6 +239,26 @@
       border-radius: 10px;
       color: #fff;
     }
+
+    /* Tombol play musik */
+    #playMusicBtn {
+      position: fixed;
+      bottom: 1rem;
+      left: 1rem;
+      background: #b07c66;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 0.6rem 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      user-select: none;
+    }
+    #playMusicBtn:hover {
+      background: #8f5c3d;
+    }
   </style>
 </head>
 <body>
@@ -235,106 +278,109 @@
     <a href="#slide4">Ucapan</a>
   </nav>
 
-  <section id="slide1" class="fade-top" style="position: relative; overflow: hidden; color: white;">
+  <section id="slide1" class="fade-top">
     <iframe 
       src="https://drive.google.com/uc?export=view&id=1ylamvidwCIHQDJQT4WiUeT77fwbmTUqO" 
-      frameborder="0" 
-      allowfullscreen 
-      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; filter: brightness(0.6);">
+      allowfullscreen>
     </iframe>
-    <div class="slide-content" style="position: relative; z-index: 1;">
+    <div class="slide-content">
       <h1>The Wedding Of</h1>
-      <h2>Faizul & Nuri</h2>
-      <p>25 Mei 2025, pukul 08:00 WITA</p>
-      <div id="countdown" class="countdown">Loading countdown...</div>
-      <p id="guestGreeting" style="margin-top: 2rem; font-size: 1.5rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0,0,0,0.7); white-space: pre-line;"></p>
+      <h1>Faizul & Nuri</h1>
+      <h2>Sabtu, 25 Mei 2025</h2>
+      <p>Dusun Montong Singgan, Desa Salut,<br>Lombok Utara, NTB</p>
     </div>
   </section>
 
   <section id="slide2" class="fade-left">
     <div class="slide-content">
-      <p>Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
-      <p>Dengan memohon ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam pernikahan kami:</p>
-      <h2 style="font-size: 2.5rem;">Faizul Islami</h2>
-      <p>Putri ke-2 dari Bapak Alm. Marzuki dan Ibu Rukayah</p>
-      <h2 style="font-size: 2.5rem;">&</h2>
-      <h2 style="font-size: 2.5rem;">Nuri Auliya Ulul Arshy</h2>
-      <p>Putra ke-2 dari Bapak Husnul dan Ibu Zaenap</p>
-      <p>Insya Allah akan dilaksanakan pada:</p>
-      <p><strong>Minggu, 25 Mei 2025 | Pukul 08:00 WITA</strong></p>
+      <h2>Profil Mempelai</h2>
+      <p><strong>Faizul</strong><br>Putra dari Bapak Jafar dan Ibu Rini</p>
+      <p><strong>Nuri</strong><br>Putri dari Bapak Hasan dan Ibu Siti</p>
+      <img src="https://via.placeholder.com/400x300?text=Faizul+dan+Nuri" alt="Foto Faizul & Nuri" />
     </div>
   </section>
 
   <section id="slide3" class="fade-right">
     <div class="slide-content">
       <h2>Lokasi Acara</h2>
-      <p>Rumah Alm. Bapak Marzuki</p>
-      <p>Dusun Montong Singgan, Desa Salut, Kec. Kayangan, Lombok Utara</p>
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18..." height="300" allowfullscreen="" loading="lazy"></iframe>
-      <a class="button" href="https://maps.app.goo.gl/jZBLxLdvCH4BRBtX9" target="_blank">Buka Lokasi di Google Maps</a>
+      <iframe 
+        src="https://maps.google.com/maps?q=Dusun%20Montong%20Singgan%20Desa%20Salut%20Lombok%20Utara&t=&z=15&ie=UTF8&iwloc=&output=embed"
+        style="width:100%;height:300px;border:none;border-radius:10px;" allowfullscreen>
+      </iframe>
+      <p>Dusun Montong Singgan, Desa Salut,<br>Lombok Utara, NTB</p>
     </div>
   </section>
 
   <section id="slide4" class="fade-bottom">
     <div class="slide-content">
-      <h2>Atas kehadiran dan doa restunya</h2>
-      <p>Kami ucapkan terima kasih yang sebesar-besarnya.</p>
+      <h2>Ucapan & Doa</h2>
+      <p>Kami mengundang Anda untuk ikut berbahagia<br>dan memberikan doa restu bagi kami.</p>
+      <p>Semoga Allah SWT memberkahi pernikahan ini.</p>
     </div>
   </section>
 
-  <script>
-    const sections = document.querySelectorAll("section");
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        const slideContent = entry.target.querySelector('.slide-content');
-        if (entry.isIntersecting) {
-          slideContent.classList.add('animate');
-        } else {
-          slideContent.classList.remove('animate');
-        }
-      });
-    }, { threshold: 0.4 });
-    sections.forEach(section => observer.observe(section));
-  </script>
+  <button id="playMusicBtn" title="Putar Musik">🎵 Putar Musik</button>
 
   <script>
     const popupOverlay = document.getElementById('popupFormOverlay');
     const popupForm = document.getElementById('popupForm');
-    const guestGreeting = document.getElementById('guestGreeting');
-    popupForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = this.guestName.value.trim();
-      if(name.length > 0) {
-        guestGreeting.textContent = `Kepada Yth, ${name}`;
-        popupOverlay.style.display = 'none';
+    const bgMusic = document.getElementById('bgMusic');
+    const playMusicBtn = document.getElementById('playMusicBtn');
+    let musicPlaying = false;
+
+    // Fungsi mainkan musik + ubah tombol
+    function toggleMusic() {
+      if (!musicPlaying) {
+        bgMusic.play().catch(() => {
+          alert('Tekan tombol putar musik untuk memulai audio');
+        });
+        playMusicBtn.textContent = '🔇 Hentikan Musik';
+        musicPlaying = true;
+      } else {
+        bgMusic.pause();
+        playMusicBtn.textContent = '🎵 Putar Musik';
+        musicPlaying = false;
       }
-    });
-  </script>
-
-  <script>
-    function updateCountdown() {
-      const countdownEl = document.getElementById('countdown');
-      const eventTime = new Date('2025-05-25T00:00:00Z').getTime(); // UTC
-      const now = new Date().getTime();
-      const offset = 8 * 60 * 60 * 1000; // WITA UTC+8
-      const diff = eventTime - now + offset;
-
-      if (diff <= 0) {
-        countdownEl.textContent = "Acara telah dimulai";
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      countdownEl.textContent = `${days} Hari ${hours} Jam ${minutes} Menit ${seconds} Detik`;
     }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-  </script>
+    playMusicBtn.addEventListener('click', toggleMusic);
 
+    popupForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const guestName = popupForm.guestName.value.trim();
+      if (guestName) {
+        alert(`Terima kasih ${guestName}, undangan sudah kami catat!`);
+        popupOverlay.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        // Mainkan musik otomatis setelah input nama
+        if (!musicPlaying) {
+          toggleMusic();
+        }
+      } else {
+        alert('Mohon masukkan nama Anda');
+      }
+    });
+
+    // Disable scroll saat popup muncul
+    document.body.style.overflow = 'hidden';
+
+    // Animasi slide content on scroll
+    function animateOnScroll() {
+      const fadeSections = document.querySelectorAll('section');
+      const windowBottom = window.innerHeight + window.scrollY;
+
+      fadeSections.forEach(section => {
+        const content = section.querySelector('.slide-content');
+        if (content) {
+          const sectionTop = section.offsetTop + 100;
+          if (windowBottom > sectionTop) {
+            content.classList.add('animate');
+          }
+        }
+      });
+    }
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('load', animateOnScroll);
+  </script>
 </body>
 </html>
